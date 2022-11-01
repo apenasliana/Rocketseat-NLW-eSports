@@ -9,6 +9,7 @@ import {useFonts,
     Inter_900Black
   } from '@expo-google-fonts/inter'
 import {Subscription} from 'expo-modules-core'
+import * as Notifications from 'expo-notifications'
 
 import { Routes }  from './src/routes';
 
@@ -28,13 +29,31 @@ export default function App() {
     Inter_700Bold,
     Inter_900Black
   }) 
-  // const getPushNotificationListener = useRef<Subscription>();
-  // const responsePushNotificationListener = useRef<Subscription>();
+  const getPushNotificationListener = useRef<Subscription>();
+  const responsePushNotificationListener = useRef<Subscription>();
 
-  // useEffect(()=>{
+  useEffect(()=>{
 
-  //   getPushNotificationToken()
-  // })
+    getPushNotificationToken()
+  })
+
+  useEffect(()=>{
+
+    getPushNotificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      console.log(notification ) 
+    })
+    responsePushNotificationListener.current = Notifications.addNotificationResponseReceivedListener(response =>{
+      console.log(response)
+    })
+
+    return () =>{
+      if(getPushNotificationListener.current && responsePushNotificationListener.current){
+        Notifications.removeNotificationSubscription(getPushNotificationListener.current)
+        Notifications.removeNotificationSubscription(responsePushNotificationListener.current)
+
+      }
+    }
+  },[])
     
 
   return (
