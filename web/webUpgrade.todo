@@ -1,0 +1,7 @@
+Ideas to make this web page better:
+  To do:
+    - Site responsivo
+    - Carrosel nos anúncios (utilizar keen-slider.io)
+
+    - Utilizar radix para fazer a seleção dos games no modal (componente SELECT)
+    - Validação do formulario (utilizar o react-hook-form, schema validation)
